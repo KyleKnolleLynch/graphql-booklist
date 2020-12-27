@@ -1,11 +1,11 @@
 import { useState } from 'react'
-import { useQuery } from '@apollo/client'
-import { GET_AUTHORS } from '../queries/queries'
+import { useQuery, useMutation } from '@apollo/client'
+import { GET_AUTHORS, GET_BOOKS, addBookMutation } from '../queries/queries'
 
 
 const AddBook = () => {
   const [inputs, setInputs] = useState({
-    bookName: '',
+    name: '',
     genre: '',
     authorId: ''
   })
@@ -13,6 +13,8 @@ const AddBook = () => {
   const [alert, setAlert] = useState(false)
 
   const { loading, error, data } = useQuery(GET_AUTHORS)
+
+  const [addBookMut] = useMutation(addBookMutation)
 
   if (loading) { return 'Loading...' }
   if (error) { return `Error! ${error.message}` }
@@ -23,13 +25,25 @@ const AddBook = () => {
 
   const handleSubmit = e => {
     e.preventDefault()
-    console.log(inputs.bookName, inputs.genre, inputs.authorId)
 
-    if (!inputs.bookName || !inputs.genre || !inputs.authorId) {
+
+
+    if (!inputs.name || !inputs.genre || !inputs.authorId) {
       setAlert(true)
       return
     } else {
       setAlert(false)
+
+      addBookMut({
+        variables: {
+          name: inputs.name,
+          genre: inputs.genre,
+          authorId: inputs.authorId
+        },
+        refetchQueries: [{ query: GET_BOOKS }]
+      })
+
+      setInputs({ name: '', genre: '', authorId: '' })
     }
   }
 
@@ -38,7 +52,7 @@ const AddBook = () => {
 
       <div className="field">
         <label htmlFor='name'>Book Name</label>
-        <input type="text" name='bookName' value={inputs.bookName} onChange={handleInputsChange} />
+        <input type="text" name='name' value={inputs.name} onChange={handleInputsChange} />
       </div>
 
       <div className="field">

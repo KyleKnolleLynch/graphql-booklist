@@ -1,5 +1,6 @@
 import { useQuery } from '@apollo/client'
 import { GET_BOOKS } from '../queries/queries'
+import BookDetails from './BookDetails'
 
 
 const BookList = () => {
@@ -15,6 +16,8 @@ const BookList = () => {
           <li key={book.id}>{book.name}</li>
         ))}
       </ul>
+
+      <BookDetails />
     </div>
   )
 }
