@@ -6,5 +6,14 @@
 * express
 * express-graphql
 * mongoose
+* node js
+* mongodb atlas
 
-### To spin up the app, run npm install in both client and server directories. Run node app (or nodemon if installed in your machine) in server directory. Run npm start in client directory.
+## This app displays and adds books to a book list, using Mongo DB for data storage. 
+
+___
+
+
+### To spin up the app:
+#### Using the terminal- 
+Run 'npm install' in both client and server directories. Run 'node app' in server directory. Run 'npm start' in client directory.
