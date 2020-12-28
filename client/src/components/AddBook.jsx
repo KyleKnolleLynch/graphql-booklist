@@ -72,7 +72,7 @@ const AddBook = () => {
       </div>
 
       <button>+</button>
-      {alert && <div className='alert'><h3>Please enter all form fields...</h3></div>}
+      {alert && <div className='alert'><h4>Please enter all form fields...</h4></div>}
     </form>
   )
 }

@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { GET_BOOKS } from '../queries/queries'
 import BookDetails from './BookDetails'
@@ -6,6 +7,8 @@ import BookDetails from './BookDetails'
 const BookList = () => {
   const { loading, error, data } = useQuery(GET_BOOKS)
 
+  const [selected, setSelected] = useState(null)
+
   if (loading) return 'Loading...'
   if (error) return `Error! ${error.message}`
 
@@ -13,11 +16,11 @@ const BookList = () => {
     <div>
       <ul className='book-list'>
         {data.books.map(book => (
-          <li key={book.id}>{book.name}</li>
+          <li key={book.id} onClick={() => setSelected(book.id)}>{book.name}</li>
         ))}
       </ul>
 
-      <BookDetails />
+      <BookDetails bookId={selected} />
     </div>
   )
 }
